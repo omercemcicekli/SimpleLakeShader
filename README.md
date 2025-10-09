@@ -1,7 +1,7 @@
 
 # Simple Lake Shader for Godot
 
-https://github.com/user-attachments/assets/91c496f5-19ad-4b62-b491-c910b028f558
+![lake](https://github.com/user-attachments/assets/437cb700-8729-4339-a88d-080273848d60)
 
 A lightweight, beginner-friendly water (lake) shader for Godot 4.x.
 It features blended normal maps for surface detail, a simple Fresnel effect, refraction, foam edges, and depth-based color blending using Beer's law.
