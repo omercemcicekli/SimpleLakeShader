@@ -1,104 +1,86 @@
 @tool
 extends MeshInstance3D
-
-@export var water_size = Vector2(2.0, 2.0):
-	set(value):
-		water_size = value
-		if Engine.is_editor_hint():
-			set_values()
 			
 @export_category("Normals")
 @export var texture_normal: NoiseTexture2D = preload("res://addons/simplelakeshader/assets/noise/normal.res"):
 	set(value):
 		texture_normal = value
-		if Engine.is_editor_hint():
-			set_values()
+		set_values()
 @export var first_normal_speed = Vector2(-0.01, 0.03):
 	set(value):
 		first_normal_speed = value
-		if Engine.is_editor_hint():
-			set_values()
+		set_values()
 @export var second_normal_speed = Vector2(0.025, -0.02):
 	set(value):
 		second_normal_speed = value
-		if Engine.is_editor_hint():
-			set_values()
+		set_values()
 @export_range(-2.0, 2.0, 0.1) var first_normal_strength = 0.3:
 	set(value):
 		first_normal_strength = value
-		if Engine.is_editor_hint():
-			set_values()
+		set_values()
 @export_range(-2.0, 2.0, 0.1) var second_normal_strength = 0.4:
 	set(value):
 		second_normal_strength = value
-		if Engine.is_editor_hint():
-			set_values()
+		set_values()
 
 @export_category("Colors")
 @export var deep_color: Color = Color(0.02, 0.15, 0.3):
 	set(value):
 		deep_color = value
-		if Engine.is_editor_hint():
-			set_values()
+		set_values()
 @export var shallow_color: Color = Color(0.2, 0.5, 0.6):
 	set(value):
 		shallow_color = value
-		if Engine.is_editor_hint():
-			set_values()
+		set_values()
+			
 @export_category("Foam")
 @export_range(0.0, 2.0, 0.01) var foam_distance = 0.03:
 	set(value):
 		foam_distance = value
-		if Engine.is_editor_hint():
-			set_values()
+		set_values()
 @export_range(0.0, 1.0, 0.01) var foam_cutoff = 0.6:
 	set(value):
 		foam_cutoff = value
-		if Engine.is_editor_hint():
-			set_values()
+		set_values()
 @export var foam_color: Color = Color(1.0, 1.0, 1.0):
 	set(value):
 		foam_color = value
-		if Engine.is_editor_hint():
-			set_values()
+		set_values()
+
 
 @export_category("Misc")
+@export var water_size = Vector2(2.0, 2.0):
+	set(value):
+		water_size = value
+		set_values()
 @export_range(0.0, 0.1, 0.01) var refraction_strength: float = 0.075:
 	set(value):
 		refraction_strength = value
-		if Engine.is_editor_hint():
-			set_values()
+		set_values()
 @export_range(0.0, 1.0, 0.1) var roughness: float = 0.2:
 	set(value):
 		roughness = value
-		if Engine.is_editor_hint():
-			set_values()
+		set_values()
 @export_range(0.0, 1.0, 0.1) var metallic: float = 0.2:
 	set(value):
 		metallic = value
-		if Engine.is_editor_hint():
-			set_values()
+		set_values()
 @export_range(0.0, 1.0, 0.1) var specular: float = 0.3:
 	set(value):
 		specular = value
-		if Engine.is_editor_hint():
-			set_values()
+		set_values()
 @export_range(0.0, 10.0, 0.1) var depth_distance: float = 2.0:
 	set(value):
 		depth_distance = value
-		if Engine.is_editor_hint():
-			set_values()
+		set_values()
 @export_range(1.0, 32.0, 0.1) var beers_law: float = 16.0:
 	set(value):
 		beers_law = value
-		if Engine.is_editor_hint():
-			set_values()
-
+		set_values()
 @export_range(0.0, 1.0, 0.01) var fresnel_strength: float = 0.25:
 	set(value):
 		fresnel_strength = value
-		if Engine.is_editor_hint():
-			set_values()
+		set_values()
 
 var material: ShaderMaterial
 
