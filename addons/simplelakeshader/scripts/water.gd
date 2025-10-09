@@ -47,7 +47,6 @@ extends MeshInstance3D
 		foam_color = value
 		set_values()
 
-
 @export_category("Misc")
 @export var water_size = Vector2(2.0, 2.0):
 	set(value):
@@ -92,7 +91,6 @@ func set_values() -> void:
 	if not material:
 		return
 		
-	mesh.size = water_size
 	material.set_shader_parameter("texture_normal", texture_normal)
 	material.set_shader_parameter("first_normal_speed", first_normal_speed)
 	material.set_shader_parameter("second_normal_speed", second_normal_speed)
@@ -105,6 +103,8 @@ func set_values() -> void:
 	material.set_shader_parameter("foam_distance", foam_distance)
 	material.set_shader_parameter("foam_cutoff", foam_cutoff)
 	material.set_shader_parameter("foam_color", foam_color)
+	
+	mesh.size = water_size
 	material.set_shader_parameter("refraction_strength", refraction_strength)
 	material.set_shader_parameter("roughness", roughness)
 	material.set_shader_parameter("metallic", metallic)
