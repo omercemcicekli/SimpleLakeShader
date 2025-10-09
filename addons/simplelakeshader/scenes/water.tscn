@@ -23,6 +23,7 @@ shader_parameter/metallic = 0.2
 shader_parameter/specular = 0.3
 shader_parameter/depth_distance = 2.0
 shader_parameter/beers_law = 16.0
+shader_parameter/fresnel_strength = 0.25
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_shugh"]
 material = SubResource("ShaderMaterial_mj6gl")

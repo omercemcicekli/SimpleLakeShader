@@ -94,6 +94,12 @@ extends MeshInstance3D
 		if Engine.is_editor_hint():
 			set_values()
 
+@export_range(0.0, 1.0, 0.01) var fresnel_strength: float = 0.25:
+	set(value):
+		fresnel_strength = value
+		if Engine.is_editor_hint():
+			set_values()
+
 var material: ShaderMaterial
 
 func _ready() -> void:
@@ -123,3 +129,4 @@ func set_values() -> void:
 	material.set_shader_parameter("specular", specular)
 	material.set_shader_parameter("depth_distance", depth_distance)
 	material.set_shader_parameter("beers_law", beers_law)
+	material.set_shader_parameter("fresnel_strength", fresnel_strength)

@@ -25,6 +25,7 @@ uniform float metallic: hint_range(0.0, 1.0, 0.1) = 0.2;
 uniform float specular: hint_range(0.0, 1.0, 0.1) = 0.3;
 uniform float depth_distance: hint_range(0.0, 10.0, 0.1) = 2.0;
 uniform float beers_law: hint_range(1.0, 32.0, 0.1) = 16.0;
+uniform float fresnel_strength: hint_range(0.0, 1.0, 0.01) = 0.25;
 
 uniform sampler2D texture_screen: hint_screen_texture;
 uniform sampler2D texture_depth: hint_depth_texture;
@@ -86,17 +87,20 @@ void fragment() {
     vec3 screen_color = texture(texture_screen, final_uv).rgb;
     vec3 water_color = mix(deep_color, shallow_color, depth_blend);
 
-	float cosTheta = clamp(dot(NORMAL, normalize(VIEW)), 0.0, 1.0);
+	vec3 tangent_normal = blended_normal * 2.0 - 1.0;
+	vec3 view_normal = normalize(mat3(TANGENT, BINORMAL, NORMAL) * tangent_normal);
+
+	float cosTheta = clamp(dot(view_normal, VIEW), 0.0, 1.0);
     float fresnel = fresnel_schlick(cosTheta, 0.02);
 
 	float foam_depth = clamp((vertex_world_pos.y - depth_y) / foam_distance, 0.0, 1.0);
 	float foam = 1.0 - smoothstep(foam_cutoff, 1.0, foam_depth);
 
-    ALBEDO = mix(water_color, screen_color, depth_blend) + fresnel * 0.25;
+	ALBEDO = mix(water_color, screen_color, depth_blend) + fresnel * fresnel_strength;
 	ALBEDO = mix(ALBEDO, foam_color, foam);
     ALPHA = clamp(1.0 - depth_blend, 0.0, 1.0);
     NORMAL_MAP = blended_normal;
-    ROUGHNESS = clamp(roughness * (1.0 - fresnel), 0.0, 1.0);
+    ROUGHNESS = clamp(roughness, 0.0, 1.0);
 	SPECULAR = specular;
 	METALLIC = metallic;
 }
