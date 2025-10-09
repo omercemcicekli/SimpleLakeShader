@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://c7qnl6yb1ud1u"]
+
+[ext_resource type="Shader" uid="uid://djnkoboqxfeb7" path="res://addons/simplelakeshader/assets/shader/water.gdshader" id="1_hnbua"]
+[ext_resource type="Texture2D" uid="uid://o2s33fcmwcp8" path="res://addons/simplelakeshader/assets/noise/normal.res" id="2_asr5p"]
+[ext_resource type="Script" uid="uid://d28gkotq0s1dk" path="res://addons/simplelakeshader/scripts/water.gd" id="3_gnd6c"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mj6gl"]
+render_priority = 0
+shader = ExtResource("1_hnbua")
+shader_parameter/texture_normal = ExtResource("2_asr5p")
+shader_parameter/first_normal_speed = Vector2(-0.01, 0.03)
+shader_parameter/second_normal_speed = Vector2(0.025, -0.02)
+shader_parameter/first_normal_strength = 0.3
+shader_parameter/second_normal_strength = 0.4
+shader_parameter/deep_color = Color(0.02, 0.15, 0.3, 1)
+shader_parameter/shallow_color = Color(0.2, 0.5, 0.6, 1)
+shader_parameter/foam_distance = 0.03
+shader_parameter/foam_cutoff = 0.6
+shader_parameter/foam_color = Color(1, 1, 1, 1)
+shader_parameter/refraction_strength = 0.075
+shader_parameter/roughness = 0.2
+shader_parameter/metallic = 0.2
+shader_parameter/specular = 0.3
+shader_parameter/depth_distance = 2.0
+shader_parameter/beers_law = 16.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_shugh"]
+material = SubResource("ShaderMaterial_mj6gl")
+
+[node name="Water" type="MeshInstance3D"]
+mesh = SubResource("PlaneMesh_shugh")
+script = ExtResource("3_gnd6c")

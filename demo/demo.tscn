@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://bty3hjjykficq"]
+
+[ext_resource type="PackedScene" uid="uid://c7qnl6yb1ud1u" path="res://addons/simplelakeshader/scenes/water.tscn" id="1_mhyn8"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_k54ln"]
+
+[sub_resource type="Sky" id="Sky_sbp8j"]
+sky_material = SubResource("PhysicalSkyMaterial_k54ln")
+
+[sub_resource type="Environment" id="Environment_5tvbs"]
+background_mode = 2
+sky = SubResource("Sky_sbp8j")
+tonemap_mode = 4
+ssao_enabled = true
+sdfgi_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k54ln"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_mhyn8"]
+material = SubResource("StandardMaterial3D_k54ln")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mhyn8"]
+albedo_color = Color(0.2627451, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_k54ln"]
+material = SubResource("StandardMaterial3D_mhyn8")
+size = Vector3(4.25, 1, 5)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5tvbs")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.61566144, 0.7880108, 0, -0.7880108, -0.61566144, 0, 0, 0)
+
+[node name="Ball" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
+mesh = SubResource("SphereMesh_mhyn8")
+
+[node name="Platform" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9780095, -0.20856038, 0, 0.20856038, 0.9780095, 0, -0.5, -2.5)
+mesh = SubResource("BoxMesh_k54ln")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.17364822, 0.4161978, -0.892539, 0, 0.9063079, 0.42261833, 0.9848077, -0.07338692, 0.15737875, -3, 1, 0)
+
+[node name="Water" parent="." instance=ExtResource("1_mhyn8")]
+water_size = Vector2(64, 64)
