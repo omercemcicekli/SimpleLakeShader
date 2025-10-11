@@ -29,5 +29,6 @@ shader_parameter/fresnel_strength = 0.25
 material = SubResource("ShaderMaterial_mj6gl")
 
 [node name="Water" type="MeshInstance3D"]
+cast_shadow = 0
 mesh = SubResource("PlaneMesh_shugh")
 script = ExtResource("3_gnd6c")
