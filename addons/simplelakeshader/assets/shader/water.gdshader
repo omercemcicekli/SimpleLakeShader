@@ -1,6 +1,6 @@
 shader_type spatial;
 
-render_mode blend_mix, depth_prepass_alpha, shadows_disabled, diffuse_lambert, specular_schlick_ggx;
+render_mode blend_mix, depth_prepass_alpha, diffuse_lambert, specular_schlick_ggx;
 
 group_uniforms Normals;
 uniform sampler2D texture_normal: hint_normal;
