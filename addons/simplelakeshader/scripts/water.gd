@@ -32,27 +32,13 @@ extends MeshInstance3D
 	set(value):
 		shallow_color = value
 		set_values()
-			
-@export_category("Foam")
-@export_range(0.0, 2.0, 0.01) var foam_distance = 0.03:
-	set(value):
-		foam_distance = value
-		set_values()
-@export_range(0.0, 1.0, 0.01) var foam_cutoff = 0.6:
-	set(value):
-		foam_cutoff = value
-		set_values()
-@export var foam_color: Color = Color(1.0, 1.0, 1.0):
-	set(value):
-		foam_color = value
-		set_values()
 
 @export_category("Misc")
 @export var water_size = Vector2(2.0, 2.0):
 	set(value):
 		water_size = value
 		set_values()
-@export_range(0.0, 0.1, 0.01) var refraction_strength: float = 0.075:
+@export_range(0.0, 0.1, 0.01) var refraction_strength: float = 0.05:
 	set(value):
 		refraction_strength = value
 		set_values()
@@ -72,7 +58,7 @@ extends MeshInstance3D
 	set(value):
 		depth_distance = value
 		set_values()
-@export_range(1.0, 32.0, 0.1) var beers_law: float = 16.0:
+@export_range(1.0, 32.0, 0.1) var beers_law: float = 24.0:
 	set(value):
 		beers_law = value
 		set_values()
@@ -99,10 +85,6 @@ func set_values() -> void:
 	
 	material.set_shader_parameter("deep_color", deep_color)
 	material.set_shader_parameter("shallow_color", shallow_color)
-	
-	material.set_shader_parameter("foam_distance", foam_distance)
-	material.set_shader_parameter("foam_cutoff", foam_cutoff)
-	material.set_shader_parameter("foam_color", foam_color)
 	
 	mesh.size = water_size
 	material.set_shader_parameter("refraction_strength", refraction_strength)
