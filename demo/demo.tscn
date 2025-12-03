@@ -27,25 +27,26 @@ albedo_color = Color(0.2627451, 1, 0, 1)
 material = SubResource("StandardMaterial3D_mhyn8")
 size = Vector3(4.25, 1, 5)
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D" type="Node3D" unique_id=2080545467]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1835488164]
 environment = SubResource("Environment_5tvbs")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1178568156]
 transform = Transform3D(1, 0, 0, 0, -0.61566144, 0.7880108, 0, -0.7880108, -0.61566144, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Ball" type="MeshInstance3D" parent="."]
+[node name="Ball" type="MeshInstance3D" parent="." unique_id=1508172294]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
 mesh = SubResource("SphereMesh_mhyn8")
 
-[node name="Platform" type="MeshInstance3D" parent="."]
+[node name="Platform" type="MeshInstance3D" parent="." unique_id=479727089]
 transform = Transform3D(1, 0, 0, 0, 0.9537169, -0.30070576, 0, 0.30070576, 0.9537169, 0, -0.5, -2.5)
 mesh = SubResource("BoxMesh_k54ln")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=931641772]
 transform = Transform3D(0.17364822, 0.4161978, -0.892539, 0, 0.9063079, 0.42261833, 0.9848077, -0.07338692, 0.15737875, -3, 1, 0)
 
-[node name="Water" parent="." instance=ExtResource("1_mhyn8")]
+[node name="Water" parent="." unique_id=1213234965 instance=ExtResource("1_mhyn8")]
 water_size = Vector2(64, 64)
+refraction_strength = 0.1
