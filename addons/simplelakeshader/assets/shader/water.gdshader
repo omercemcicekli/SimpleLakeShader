@@ -37,8 +37,6 @@ float fresnel_schlick(float cosTheta, float F0) {
     return F0 + (1.0 - F0) * m5;
 }
 
-// OPTIMIZATION: Cheaper normal blending method (UDN / Whiteout)
-// Visually similar to RNM but much faster
 vec3 blend_normals(vec3 n1, vec3 n2) {
     return normalize(vec3(n1.xy + n2.xy, n1.z * n2.z));
 }
@@ -50,29 +48,22 @@ void vertex() {
 }
 
 void fragment() {
-    // 1. Normals
     vec3 first_normal = texture(texture_normal, first_uv).rgb * 2.0 - 1.0;
     vec3 second_normal = texture(texture_normal, second_uv).rgb * 2.0 - 1.0;
 
     first_normal.xy *= first_normal_strength;
     second_normal.xy *= second_normal_strength;
 
-    // Use optimized blend
     vec3 blended_normal = blend_normals(first_normal, second_normal);
 
-    // 2. Refraction Offset
     vec2 refraction_offset = blended_normal.xy * refraction_strength;
 
-    // Edge fade calculation
     vec2 edge_factor = smoothstep(0.0, edge_fade, SCREEN_UV) * smoothstep(0.0, edge_fade, vec2(1.0) - SCREEN_UV);
     refraction_offset *= (edge_factor.x * edge_factor.y);
 
-    // 3. Clamped UVs
     vec2 refracted_uv = SCREEN_UV + refraction_offset;
-    // Keep this clamp to prevent green edge artifacts
     refracted_uv = clamp(refracted_uv, vec2(0.001), vec2(0.999));
 
-    // 4. Depth Reconstruction
     float depth = texture(texture_depth, refracted_uv).r;
     vec3 ndc = vec3(refracted_uv * 2.0 - 1.0, depth);
     vec4 world = INV_VIEW_MATRIX * INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
@@ -80,12 +71,8 @@ void fragment() {
 
     vec2 final_uv = refracted_uv;
 
-    // FIX: Add small offset (+0.05) to prevent Z-fighting noise on surface
     float water_depth = vertex_world_pos.y - depth_y;
 
-    // 5. Refraction Fallback Check
-    // If the refracted ray hits something ABOVE the water (water_depth < 0),
-    // or hits the sky, revert to standard screen UV.
     if (water_depth < 0.0 || depth >= 0.999) {
         final_uv = SCREEN_UV;
         depth = texture(texture_depth, SCREEN_UV).r;
@@ -107,7 +94,6 @@ void fragment() {
     vec3 screen_color = texture(texture_screen, final_uv).rgb;
     vec3 water_color = mix(deep_color, shallow_color, depth_blend);
 
-    // Fresnel
     vec3 view_normal = normalize(mat3(TANGENT, BINORMAL, NORMAL) * blended_normal);
     float cosTheta = max(dot(view_normal, VIEW), 0.0);
     float fresnel = fresnel_schlick(cosTheta, 0.02);
